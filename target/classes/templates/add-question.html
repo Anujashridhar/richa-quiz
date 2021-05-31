@@ -1,0 +1,174 @@
+<html>
+<head>
+<style type="text/css">
+body{
+		background-color: #25274d;
+	}
+	.contact{
+		padding: 4%;
+		height: 400px;
+	}
+	.left{
+		background: #ff9b00;
+		padding: 4%;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+	}
+	.contact-info{
+		margin-top:10%;
+	}
+	.contact-info img{
+		margin-bottom: 15%;
+	}
+	.contact-info h2{
+		margin-bottom: 10%;
+	}
+	.right{
+		background: #fff;
+		padding: 3%;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+	}
+	.contact-form label{
+		font-weight:600;
+	}
+	.contact-form button{
+		background: #25274d;
+		color: #fff;
+		font-weight: 600;
+		width: 25%;
+	}
+	.contact-form button:focus{
+		box-shadow:none;
+	}
+</style>
+
+</head>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container-fluid contact">
+	<div class="row">
+		<div class="col-md-6 left" style="overflow: scroll;">
+			<div class="contact-info">
+				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image" />
+				<h2>Questions</h2>
+				<table class="table">
+				<thead>
+				<tr>
+				<td>Id</td>
+				<td>Question</td>
+				<td>Option1</td>
+				<td>Option2</td>
+				<td>Option3</td>
+				<td>Option4</td>
+				<td>Option5</td>
+				<td>Answer</td>
+				<td>Action</td>
+				</tr>
+				</thead>
+				<tbody>
+				<th:block th:if="${list!=null}" th:each="question: ${list}">
+				<tr >
+				<td th:text="${question.id}"></td>
+				<td th:text="${question.questionText}"></td>
+				<td th:text="${question.option1}"></td>
+				<td th:text="${question.option2}"></td>
+				<td th:text="${question.option3}"></td>
+				<td th:text="${question.option4}"></td>
+				<td th:text="${question.option5}"></td>
+				<td th:text="${question.answer}"></td>
+				<td ></td>
+				</tr>
+				</th:block>
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-6 right">
+	<h3>Add new Question</h3>
+			<div class="contact-form">
+			<form  method="post" th:object="${question}" th:action="@{/add-question}">
+			
+			<div class="form-group">
+					<label class="control-label col-sm-2" for="fname">Topic</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="fname" 
+							placeholder="Topic" th:field="${question.keywords}">
+					</div>
+				</div>
+			<div class="form-group">
+					<label class="control-label col-sm-2" for="comment">Question</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="comment" th:field="${question.questionText}" ></textarea>
+					</div>
+				</div>
+				<div class="row">
+							<p th:if="${#fields.hasErrors('questionText')}" style="color:red;"  th:errors="*{questionText}"></p>
+							
+						</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="fname">First
+						Option</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="fname" 
+							placeholder="Enter Option1" th:field="${question.option1}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="lname">Second
+						Name:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="lname"
+							placeholder="Enter Option2"  th:field="${question.option2}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="email">Third Option:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="email"
+							placeholder="Enter Option3"  th:field="${question.option3}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="email">Fourth Option:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="email"
+							placeholder="Enter Option4"  th:field="${question.option4}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="email">Fifth Option:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="email"
+							placeholder="Enter Option5"  th:field="${question.option5}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="answer">Answer</label>
+					<div class="col-sm-10">
+						<Select  class="form-control" id="answer" size="5"  th:field="${question.answer}">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+						<option value="4">Option 4</option>
+						<option value="5">Option 5</option>
+						</Select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
